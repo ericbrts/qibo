@@ -10,7 +10,7 @@ from qibo.backends.npmatrices import NumpyMatrices
 from qibo.backends.numpy import NumpyBackend
 from qibo.config import log, raise_error
 
-QIBO_NATIVE_BACKENDS = ("numpy", "qulacs")
+QIBO_NATIVE_BACKENDS = ("numpy", "qulacs", "slos")
 
 
 class MissingBackend(ValueError):
@@ -49,6 +49,11 @@ class MetaBackend:
             from qibo.backends.qulacs import QulacsBackend  # pylint: disable=C0415
 
             return QulacsBackend()
+
+        if backend == "slos":
+            from qibo.backends.photonic_strong_simulation import SlosBackend
+
+            return SlosBackend()
 
         return NumpyBackend()
 
